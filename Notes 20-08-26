@@ -1,4 +1,4 @@
-# Class Reflection (20 Aug 2026)
+# Class Reflection (📅 20 Aug 2026)
 
 ## Topics
 
@@ -22,11 +22,9 @@
 1. An anonymous class is a subclass defined inline, without a name — used when the subclass is only needed once.
 2. Syntax simultaneously defines a subclass and creates an instance of it:
 
-```java
-X x = new X() {
-    // @Override method bodies go here
-};
-```
+    X x = new X() {
+        // @Override method bodies go here
+    };
 
 3. Related concepts briefly mentioned: nested classes, static nested classes, and inner classes.
 
