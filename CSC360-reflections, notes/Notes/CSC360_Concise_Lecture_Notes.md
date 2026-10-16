@@ -1,0 +1,143 @@
+# CSC360 — Concise Lecture Notes
+
+## 1. Model–View–Controller (MVC)
+
+MVC separates an application into three parts:
+
+- **Model:** Stores or represents data, such as student names and email addresses. Data may be in memory or a database.
+- **View:** Displays data through components such as buttons, text fields, lists, and tables.
+- **Controller:** Coordinates interactions between the model and view, acting as a middleman.
+
+**Example:** The model stores student details, the view displays them in a table, and the controller handles requests to show or update them.
+
+**Key idea:** MVC separates responsibilities and makes applications easier to organize and maintain.
+
+## 2. Java GUI Applications and Threads
+
+### Main Thread
+- Executes the `main()` method and starts the application.
+- It may finish while the GUI continues running.
+
+### Event Dispatch Thread (EDT)
+- Swing uses the EDT to process GUI events, such as button clicks.
+- Event listeners usually run on the EDT.
+
+### Why can the UI freeze?
+Long-running work on the EDT prevents it from handling other events or repainting the interface, making the application unresponsive.
+
+### Background Threads
+Use background threads or an `ExecutorService` for lengthy tasks so the EDT remains responsive.
+
+```java
+ExecutorService executor =
+        Executors.newSingleThreadExecutor();
+
+button.addActionListener(e -> {
+    executor.submit(() -> {
+        // Perform long-running work
+    });
+});
+```
+
+**Key idea:** Keep long-running tasks off the EDT, and update Swing components safely on the EDT.
+
+## 3. Progress Bars and Concurrent Tasks
+
+An application may run multiple jobs and display each job's progress. Useful features can include monitoring, cancelling, restarting, and showing overall progress.
+
+### Overall Progress
+For three equally important jobs at 100%, 50%, and 0%:
+
+\[
+P_{\text{overall}} = \frac{100+50+0}{3}=50\%
+\]
+
+If jobs involve different amounts of work, weighted progress may be more appropriate:
+
+\[
+P_{\text{overall}} =
+\frac{\sum_{i=1}^{n} w_iP_i}{\sum_{i=1}^{n}w_i}
+\]
+
+- \(P_i\): progress of job \(i\)
+- \(w_i\): weight or amount of work for job \(i\)
+- \(n\): number of jobs
+
+These are illustrative calculations; the lecture did not specify an exact weighting method.
+
+### Independent Job Control
+Cancelling one job should not cancel others unless intended. A project should demonstrate how jobs are executed, monitored, updated, cancelled, and restarted—not just display progress-bar graphics.
+
+## 4. Swing and JavaFX
+
+Choose a GUI framework based on:
+- Project requirements and required features
+- Existing code and component compatibility
+- Implementation complexity
+- Maintenance and integration costs
+
+When combining Swing and JavaFX, explain what each contributes, why one framework alone is insufficient, and what extra complexity the combination introduces.
+
+**Key idea:** Justify technology choices using specific requirements and trade-offs, not appearance alone.
+
+## 5. Java Properties
+
+In JavaFX, properties represent values that can be observed or connected to GUI components through data binding.
+
+```java
+StringProperty name =
+        new SimpleStringProperty("Jiya");
+
+String currentName = name.get();
+name.set("Student");
+```
+
+- `get()` reads the value.
+- `set()` changes the value.
+- Properties can help update the interface when data changes.
+
+**Key idea:** For unfamiliar APIs, investigate their purpose, methods, and intended use.
+
+## 6. Technical Presentations and Project Design
+
+### Problem Statement vs. Objective
+- **Problem statement:** Describes the challenge and why it matters.
+- **Objective:** States what the project aims to achieve.
+
+Example:
+- **Problem:** Long operations on the UI thread can make an application unresponsive.
+- **Objective:** Build an application that demonstrates concurrent tasks, progress monitoring, and responsive GUI updates.
+
+### Explaining a Project
+- Explain the problem in simple language.
+- Introduce relevant technical concepts.
+- Show how the solution addresses the problem.
+- Justify important features and technology choices.
+- Discuss alternatives, limitations, and trade-offs.
+
+**Key idea:** Demonstrate how and why the system works instead of merely memorizing definitions or presenting a polished interface.
+
+## 7. General Learning Principle
+
+When you encounter an unfamiliar concept:
+
+1. Identify what you do not understand.
+2. Form a specific question.
+3. Consult documentation or learning resources.
+4. Try a small example.
+5. Connect what you learn to the project.
+
+Learn to find and use relevant documentation instead of trying to memorize every class or API.
+
+## Quick Revision Checklist
+
+- [ ] Explain Model, View, and Controller.
+- [ ] Distinguish the main thread from Swing's EDT.
+- [ ] Explain why long tasks can freeze a GUI.
+- [ ] Explain the purpose of background threads and executor services.
+- [ ] Calculate average and weighted overall progress.
+- [ ] Explain independent job cancellation.
+- [ ] Justify a choice between Swing and JavaFX.
+- [ ] Explain JavaFX properties and data binding.
+- [ ] Distinguish a problem statement from a project objective.
+- [ ] Explain project decisions, limitations, and trade-offs.
